@@ -1,4 +1,4 @@
-package grammer
+package grammar
 
 import (
 	"fmt"
@@ -50,7 +50,7 @@ func (p *Parser) passWhiteSpace() {
 	}
 }
 
-func ParseGrammer(src []byte) (g Grammer) {
+func ParseGrammar(src []byte) (g Grammar) {
 	p := Parser{}
 	p.Init(src, func(pos Position, msg string) {
 		// TODO make error handler not repeat errors

@@ -1,3 +1,3 @@
-package grammer
+package grammar
 
-//func GreibachNormalForm(g Grammer) Grammer {}
+//func GreibachNormalForm(g Grammar) Grammar {}

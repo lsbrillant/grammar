@@ -1,11 +1,11 @@
-package grammer
+package grammar
 
 import "testing"
 
 var scanAndParseTests = [...]struct {
 	program string
 	tokens  []token
-	grammer Grammer
+	grammar Grammar
 }{
 	{
 		`S -> ab`,
@@ -17,7 +17,7 @@ var scanAndParseTests = [...]struct {
 			Literal,
 			Literal,
 		},
-		Grammer{
+		Grammar{
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Terminal("b")}}},
 			},
@@ -41,7 +41,7 @@ var scanAndParseTests = [...]struct {
 			Space,
 			Literal,
 		},
-		Grammer{
+		Grammar{
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -70,7 +70,7 @@ var scanAndParseTests = [...]struct {
 			Space,
 			Literal,
 		},
-		Grammer{
+		Grammar{
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {
 					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},
@@ -97,7 +97,7 @@ func TestScanner(t *testing.T) {
 
 func TestParse(t *testing.T) {
 	for i, test := range scanAndParseTests {
-		g := ParseGrammer([]byte(test.program))
+		g := ParseGrammar([]byte(test.program))
 		if !g.IsValid() {
 			t.Error("Error in test %d : g is not valid")
 		}
@@ -106,14 +106,14 @@ func TestParse(t *testing.T) {
 				if rule.From != key {
 					t.Errorf("Error in test %d : key %s does not match %s", i, rule.From, key)
 				}
-				if rule.From != test.grammer.Rules[key][k].From {
+				if rule.From != test.grammar.Rules[key][k].From {
 					t.Errorf("Error in test %d : rule.From %s does not match expected %s",
-						i, rule.From, test.grammer.Rules[key][k].From)
+						i, rule.From, test.grammar.Rules[key][k].From)
 				}
 				for h, sym := range rule.Symbols {
-					if sym != test.grammer.Rules[key][k].Symbols[h] {
+					if sym != test.grammar.Rules[key][k].Symbols[h] {
 						t.Errorf("Error in test %d : symbol %s does not match expected %s",
-							i, sym, test.grammer.Rules[key][k].Symbols[h])
+							i, sym, test.grammar.Rules[key][k].Symbols[h])
 					}
 				}
 			}

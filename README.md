@@ -1,4 +1,4 @@
-Grammer
+Grammar
 =======
 
-A simple library for working with formal grammers.
+A simple library for working with formal grammars.
