@@ -98,6 +98,9 @@ func TestScanner(t *testing.T) {
 func TestParse(t *testing.T) {
 	for i, test := range scanAndParseTests {
 		g := ParseGrammer([]byte(test.program))
+		if !g.IsValid() {
+			t.Error("Error in test %d : g is not valid")
+		}
 		for key, rules := range g.Rules {
 			for k, rule := range rules {
 				if rule.From != key {

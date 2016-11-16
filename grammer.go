@@ -15,12 +15,26 @@ func (g *Grammer) AddRule(r Rule) {
 	g.Rules[r.From] = append(g.Rules[r.From], r)
 }
 
-//func (g *Grammer) IsValid() bool {
-//	if _, exists := g.Rules[StartSymbol]; !exists {
-//		return false
-//	}
-//	return true
-//}
+func (g *Grammer) IsValid() bool {
+	if _, exists := g.Rules[StartSymbol]; !exists {
+		return false
+	}
+	for _, rules := range g.Rules {
+		for _, rule := range rules {
+			for _, sym := range rule.Symbols {
+				switch s := sym.(type) {
+				case Nonterminal:
+					if _, exists := g.Rules[s]; !exists {
+						return false
+					}
+				case Terminal:
+					// do nothing
+				}
+			}
+		}
+	}
+	return true
+}
 
 type Rule struct {
 	From    Nonterminal
