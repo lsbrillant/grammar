@@ -37,8 +37,35 @@ func (g *Grammar) IsValid() bool {
 }
 
 func (g *Grammar) IsRegular() bool {
-
-	return true
+	allLeft, allRight := true, true
+	for _, rules := range g.Rules {
+		for _, rule := range rules {
+			if len(rule.Symbols) > 2 {
+				return false
+			}
+			switch rule.Symbols[0].(type) {
+			case Nonterminal:
+				allRight = false
+				if len(rule.Symbols) > 1 {
+					switch rule.Symbols[1].(type) {
+					case Nonterminal:
+						return false
+					}
+				} else {
+					return false
+				}
+			case Terminal:
+				if len(rule.Symbols) > 1 {
+					allLeft = false
+					switch rule.Symbols[1].(type) {
+					case Terminal:
+						return false
+					}
+				}
+			}
+		}
+	}
+	return allLeft || allRight
 }
 
 type Rule struct {
