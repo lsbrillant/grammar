@@ -1,16 +1,23 @@
 package grammar
 
+import (
+	"fmt"
+)
+
 type Grammar struct {
-	Rules map[Nonterminal][]Rule
+	Ordering []Nonterminal
+	Rules    map[Nonterminal][]Rule
 }
 
 func (g *Grammar) AddRule(r Rule) {
 	if g.Rules == nil {
 		g.Rules = make(map[Nonterminal][]Rule)
-
+		g.Ordering = make([]Nonterminal, 0)
+		//g.Ordering[0] = StartSymbol
 	}
 	if _, exists := g.Rules[r.From]; !exists {
 		g.Rules[r.From] = make([]Rule, 0)
+		g.Ordering = append(g.Ordering, r.From)
 	}
 	g.Rules[r.From] = append(g.Rules[r.From], r)
 }
@@ -66,6 +73,41 @@ func (g *Grammar) IsRegular() bool {
 		}
 	}
 	return allLeft || allRight
+}
+
+func (g *Grammar) IsContextFree() bool {
+	// TODO make this a real function
+	// find out the constraints of a CFG
+	return true
+}
+
+func (g *Grammar) String() (s string) {
+	for _, key := range g.Ordering {
+		s += fmt.Sprintf("%s -> ", key)
+		for i, rule := range g.Rules[key] {
+			for _, sym := range rule.Symbols {
+				switch b := sym.(type) {
+				case Nonterminal:
+					s += string(b)
+				case Terminal:
+					s += string(b)
+				}
+			}
+			if i < len(g.Rules[key])-1 {
+				s += " | "
+			}
+		}
+		s += "\n"
+	}
+	return
+}
+func ChomskyNormalForm(g Grammar) Grammar {
+	// START: Eliminate the start symbol from right-hand sides
+	// TERM: Eliminate rules with nonsolitary terminals
+	// BIN: Eliminate right-hand sides with more than 2 nonterminals
+	// DEL: Eliminate ε-rules
+	// UNIT: Eliminate unit rules
+	return Grammar{}
 }
 
 type Rule struct {

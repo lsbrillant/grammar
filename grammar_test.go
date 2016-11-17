@@ -8,6 +8,7 @@ var grammarValidityTests = [...]struct {
 }{
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -17,6 +18,7 @@ var grammarValidityTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Nonterminal("B")}}},
 			},
@@ -25,6 +27,7 @@ var grammarValidityTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "A", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("A"): {{"A", []Symbol{Terminal("a"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -48,6 +51,7 @@ var grammarHeirarchyTests = [...]struct {
 }{
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -57,6 +61,7 @@ var grammarHeirarchyTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Nonterminal("B"), Terminal("a")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -66,6 +71,7 @@ var grammarHeirarchyTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Nonterminal("B"), Terminal("a"), Terminal("c")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -75,6 +81,7 @@ var grammarHeirarchyTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Nonterminal("B"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -84,6 +91,7 @@ var grammarHeirarchyTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "A", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {
 					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},
@@ -97,6 +105,7 @@ var grammarHeirarchyTests = [...]struct {
 	},
 	{
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {
 					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},

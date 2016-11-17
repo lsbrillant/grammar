@@ -18,6 +18,7 @@ var scanAndParseTests = [...]struct {
 			Literal,
 		},
 		Grammar{
+			[]Nonterminal{"S"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Terminal("b")}}},
 			},
@@ -42,6 +43,7 @@ var scanAndParseTests = [...]struct {
 			Literal,
 		},
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {{"S", []Symbol{Terminal("a"), Nonterminal("B")}}},
 				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
@@ -71,6 +73,7 @@ var scanAndParseTests = [...]struct {
 			Literal,
 		},
 		Grammar{
+			[]Nonterminal{"S", "B"},
 			map[Nonterminal][]Rule{
 				Nonterminal("S"): {
 					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},
