@@ -82,6 +82,32 @@ var grammarHeirarchyTests = [...]struct {
 		},
 		false,
 	},
+	{
+		Grammar{
+			map[Nonterminal][]Rule{
+				Nonterminal("S"): {
+					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},
+					{"S", []Symbol{Terminal("b"), Nonterminal("A")}},
+				},
+				Nonterminal("A"): {{"A", []Symbol{Terminal("a"), Nonterminal("B")}}},
+				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
+			},
+		},
+		true,
+	},
+	{
+		Grammar{
+			map[Nonterminal][]Rule{
+				Nonterminal("S"): {
+					{"S", []Symbol{Terminal("a"), Nonterminal("B")}},
+					{"S", []Symbol{Terminal("b"), Nonterminal("A")}},
+				},
+				Nonterminal("A"): {{"A", []Symbol{Nonterminal("B"), Terminal("a")}}},
+				Nonterminal("B"): {{"B", []Symbol{Terminal("b")}}},
+			},
+		},
+		false,
+	},
 }
 
 func TestIsRegular(t *testing.T) {
